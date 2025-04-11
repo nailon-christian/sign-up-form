@@ -118,3 +118,9 @@ button:active {
 .links a:hover {
     color: #ff8c00;
 }
+
+.error { 
+    color: red;
+    font-size: 14px;
+    display: none;
+}

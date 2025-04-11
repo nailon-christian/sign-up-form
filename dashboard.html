@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #181818;
+            color: #fff;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+
+        .container {
+            width: 380px;
+            padding: 30px;
+            background: #000;
+            border-radius: 15px;
+            box-shadow: 0px 0px 25px rgba(255, 165, 0, 0.9);
+            animation: fadeIn 0.6s ease-in-out;
+            transition: all 0.3s ease;
+            box-sizing: border-box;
+        }
+
+        .container:hover {
+            transform: scale(1.05);
+            box-shadow: 0px 0px 35px rgba(255, 165, 0, 1);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        h2 {
+            color: #ffa500;
+            margin-bottom: 20px;
+            font-size: 28px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .dashboard-content {
+            margin-top: 30px;
+        }
+
+        .section {
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: #222;
+            border-radius: 10px;
+            box-shadow: 0px 0px 20px rgba(255, 165, 0, 0.6);
+        }
+
+        .section h3 {
+            color: #ffa500;
+        }
+
+        button {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(45deg, #ff8c00, #ffa500);
+            border: none;
+            border-radius: 10px;
+            color: #000;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease, transform 0.2s;
+            box-shadow: 0px 7px 15px rgba(255, 140, 0, 0.6);
+            font-size: 17px;
+        }
+
+        button:hover {
+            background: linear-gradient(45deg, #ffa500, #ff8c00);
+            transform: scale(1.05);
+            box-shadow: 0px 12px 22px rgba(255, 140, 0, 0.8);
+        }
+
+        button:active {
+            transform: scale(0.95);
+            box-shadow: 0px 5px 10px rgba(255, 140, 0, 0.6);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Welcome to the Dashboard</h2>
+        <p>Hello, <span id="username"></span>! Here’s an overview of your account.</p>
+
+        <div class="dashboard-content">
+            <div class="section">
+                <h3>Account Information</h3>
+                <p>Username: <span id="account-username"></span></p>
+            </div>
+
+            <div class="section">
+                <h3>Recent Activity</h3>
+                <ul id="activity-list"></ul>
+            </div>
+
+            <div class="section">
+                <button onclick="logout()">Logout</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const usernameElement = document.getElementById("username");
+            const accountUsernameElement = document.getElementById("account-username");
+            const activityList = document.getElementById("activity-list");
+
+            const storedUser = JSON.parse(localStorage.getItem("user"));
+
+            if (storedUser) {
+                usernameElement.textContent = storedUser.username;
+                accountUsernameElement.textContent = storedUser.username;
+
+                const activities = [
+                    "Logged in at 8:45 AM",
+                    "Updated account settings",
+                    "Changed password"
+                ];
+
+                activities.forEach(activity => {
+                    const listItem = document.createElement("li");
+                    listItem.textContent = activity;
+                    activityList.appendChild(listItem);
+                });
+            } else {
+                alert("You are not logged in.");
+                window.location.href = "login.html";
+            }
+        });
+
+        function logout() {
+            localStorage.removeItem("user");
+            alert("Logged out successfully!");
+            window.location.href = "login.html";
+        }
+    </script>
+</body>
+</html>
